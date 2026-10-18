@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-  Activity, AlertCircle, ArrowDownUp, ArrowRight, Bell, Check,
+  Activity, AlertCircle, ArrowDownUp, ArrowRight, Bell, Check, Sun, Moon,
   ChevronDown, CircleHelp, Clock3, Command, Filter, LayoutDashboard,
   ListTodo, LoaderCircle, LogOut, Menu, Plus, Search, Settings,
   ShieldCheck, Users, X, Zap, UserRound, RefreshCw,
@@ -71,6 +71,12 @@ const navItems = [
 ]
 
 function App() {
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    try {
+      const saved = localStorage.getItem('opsflow-theme')
+      return saved === 'light' ? 'light' : 'dark'
+    } catch { return 'dark' }
+  })
   const [items, setItems] = useState<WorkItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -262,6 +268,11 @@ const updateItemStatus = async () => {
 
   useEffect(() => { if (activeNav === 'Teams') void loadTeams() }, [activeNav, loadTeams])
   useEffect(() => { if (activeNav === 'Overview' || activeNav === 'Activity' || notificationsOpen) void loadActivity() }, [activeNav, notificationsOpen, loadActivity])
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    try { localStorage.setItem('opsflow-theme', theme) } catch { /* Storage may be unavailable in private contexts. */ }
+  }, [theme])
 
   useEffect(() => {
     void loadItems()
@@ -543,6 +554,7 @@ const updateItemStatus = async () => {
           </div>
           <div className="topbar-actions">
             <div className="command-hint"><Command size={13} /> <span>K</span></div>
+            <button className="icon-button theme-toggle" aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} onClick={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}><span className="theme-toggle-track">{theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}</span></button>
             <button className="icon-button notification-button" aria-label="Notifications" title="Notifications" onClick={() => { setNotificationsOpen((open) => !open); setProfileOpen(false) }}><Bell size={18} />{activity.length > 0 && <span className="notification-dot" />}</button>
             <div className="topbar-divider" />
             <button className="profile-avatar top-avatar profile-trigger" aria-label="Open profile" onClick={() => { setProfileOpen((open) => !open); setNotificationsOpen(false) }}>AD</button>
