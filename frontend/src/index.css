@@ -1,37 +1,59 @@
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
   font-family: 'DM Sans', sans-serif;
-  color: #e8edf8;
-  background: #090d16;
+  color: #f0f4f1;
+  background: #0b0d0c;
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-optical-sizing: auto;
   font-weight: 400;
-  --bg: #090d16;
-  --panel: #0e1421;
-  --panel-raised: #121a2a;
-  --border: #202b3e;
-  --muted: #8591a8;
-  --text: #e8edf8;
-  --blue: #5685ff;
-  --blue-bright: #6c96ff;
+  --bg: #0b0d0c;
+  --panel: #141816;
+  --panel-raised: #191e1b;
+  --border: #252b27;
+  --muted: #9aa69e;
+  --text: #f0f4f1;
+  --accent: #24d68a;
+  --accent-strong: #16b875;
+  --accent-soft: #153426;
+  --accent-border: #24563d;
+  --focus: #24d68a;
+  --surface-input: #101411;
+  --surface-hover: #1b211d;
+  --shadow: 0 18px 55px #0007;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  color: #29251f;
+  background: #faf8f4;
+  --bg: #faf8f4;
+  --panel: #ffffff;
+  --panel-raised: #fffdf9;
+  --border: #e9e3da;
+  --muted: #81766b;
+  --text: #29251f;
+  --accent: #e98438;
+  --accent-strong: #d96e22;
+  --accent-soft: #fff0e1;
+  --accent-border: #f0c8a6;
+  --focus: #d96e22;
+  --surface-input: #ffffff;
+  --surface-hover: #f8eee4;
+  --shadow: 0 18px 55px #5b3a1a14;
 }
 
 * { box-sizing: border-box; }
-html { min-width: 320px; min-height: 100%; background: var(--bg); }
-body { margin: 0; min-width: 320px; min-height: 100vh; }
+html { min-width: 320px; min-height: 100%; background: var(--bg); color-scheme: inherit; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--bg); color: var(--text); transition: background-color .2s ease, color .2s ease; }
 body, button, input, select, textarea { font-family: 'DM Sans', sans-serif; }
 button, input, select, textarea { font: inherit; }
 button { color: inherit; }
-button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 2px solid var(--blue-bright);
-  outline-offset: 3px;
-}
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 button:disabled { cursor: not-allowed; opacity: .6; }
-::selection { color: white; background: #365dbb; }
+::selection { color: #ffffff; background: var(--accent-strong); }
 #root { min-height: 100vh; }
-  
